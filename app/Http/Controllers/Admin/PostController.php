@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Support\Str;
+use App\Models\Tag;
 
 class PostController extends Controller
 {
@@ -31,7 +32,8 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.posts.create', compact('categories'));
+        $tags = Tag::all();
+        return view('admin.posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -43,11 +45,12 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-
         $post = new Post();
         $post->fill($data);
         $post->slug = Str::slug($post->title, '-');
         $post->save();
+
+        if ( array_key_exists( 'tags', $data) ) $post->tags()->attach($data['tags']);
 
         return redirect()->route('admin.posts.index');
     }
@@ -73,7 +76,9 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::all();
-        return view('admin.posts.edit', compact('post', 'categories'));
+        $tags = Tag::all();
+        $post_tags_id = $post->tags->pluck('id')->toArray();
+        return view('admin.posts.edit', compact('post', 'categories', 'tags', 'post_tags_id'));
     }
 
     /**
@@ -86,9 +91,9 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $data = $request->all();
-
         $post['slug'] = Str::slug($request->title, '-');
         $post->update($data);
+        if (array_key_exists('tags', $data)) $post->tags()->sync($data['tags']);
 
         return redirect()->route('admin.posts.index');
     }

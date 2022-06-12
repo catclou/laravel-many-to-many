@@ -17,6 +17,16 @@
 
     </div>
     <p class="lead m-3 mb-5 text-justify">{{$post->content}}</p>
+
+    <h3>Tag del post:</h3>
+    <div class="d-flex">
+        @forelse ($post->tags as $tag)
+            <span class="badge badge-pill m-1" style="background-color: {{$tag->color}}">{{$tag->label}}</span>
+        @empty
+            <span>Non ci sono tag abbinati</span>
+        @endforelse
+    </div>
+
 </div>
 
 @endsection

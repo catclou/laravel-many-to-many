@@ -32,6 +32,18 @@
     
             <label for="IMAGE">image url</label>
             <input type="url" class="form-control mb-4" id="image" name="image" placeholder="url dell'immagine" value="{{ old('image', $post->image) }}">
+
+            {{-- input dei tag --}}
+            <label for="">Scegli i tag</label>
+
+            <div class="d-flex flex-wrap">
+                @foreach($tags as $tag)
+                    <div class="form-check form-check-inline">
+                        <input type="checkbox" class="form-check-input" id="tag-{{$tag->id}}" value="{{$tag->id}}" name="tags[]" @if (in_array($tag->id, old('tags', $post_tags_id))) checked @endif>
+                        <label for="tag-{{$tag->id}}" class="form-check-label">{{$tag->label}}</label>
+                    </div>
+                @endforeach
+            </div>
     
             <button type="submit" class="btn btn-success align-self-center mt-4 mb-5 w-25">Salva le modifiche</button>
         </div>
