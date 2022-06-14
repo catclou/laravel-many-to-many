@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container d-flex flex-column justify-content-center align-items-center p-5 mb-5 text-light">
-    <img src="{{$post->image}}" alt="{{$post->title}}" width="50%">
+    <img src="{{ asset("storage/$post->image") }}" alt="{{$post->title}}" width="50%">
     <h1 class="m-3 mt-5">{{$post->title}}</h1>
     <div class="d-flex">
 

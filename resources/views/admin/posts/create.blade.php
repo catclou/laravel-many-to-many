@@ -6,7 +6,7 @@
 
     <h1 class="text-center m-5">Crea un nuovo post</h1>
     
-    <form action="{{route('admin.posts.store')}}" method="POST" class="m-5">
+    <form action="{{route('admin.posts.store')}}" method="POST" class="m-5" enctype="multipart/form-data">
         @csrf
         <div class="form-group d-flex flex-column">
     
@@ -26,8 +26,13 @@
             <label for="title">Contenuto</label>
             <textarea class="form-control mb-4" id="content" name="content" cols="30" rows="10" placeholder="Contenuto del post"></textarea>
     
-            <label for="IMAGE">Immagine</label>
-            <input type="url" class="form-control mb-4" id="image" name="image" placeholder="url dell'immagine">
+            {{-- <label for="IMAGE">Immagine</label>
+            <input type="url" class="form-control mb-4" id="image" name="image" placeholder="url dell'immagine"> --}}
+            
+            <div class="form-group">
+                <label for="image">Immagine del post</label>
+                <input type="file" name="image" id="image" class="form-control-file">
+            </div>
 
             {{-- input dei tag --}}
             <label for="">Scegli i tag</label>
