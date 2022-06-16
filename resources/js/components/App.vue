@@ -1,13 +1,10 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    
+    <div class="container-fluid">
+        <div class="row">
+            
                     <Header/>
-
-                </div>
-            </div>
+                    <PostList/>
+                
         </div>
     </div>
 </template>
@@ -15,11 +12,13 @@
 <script>
 
     import Header from './Header.vue'
+    import PostList from './posts/PostList.vue'
 
     export default {
         name: "App",
         components: {
-            Header
+            Header,
+            PostList
         }
     }
 
